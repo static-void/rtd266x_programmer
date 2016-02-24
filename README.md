@@ -26,9 +26,9 @@ Clearly i2c-1 is the i2c bus connected to the VGA DDC pins. Now I can plug a VGA
 
 Usage: rtd_prog -d <device #> [-option[s]]  
 Options:  
-  -d <device #> : Specify the i2c bus to use, e.g. -d 1 means /dev/i2c-1  
-  -b <file>     : Backup the current firmware on the RTD266X to a file  
-  -f <file>     : Flash a file to the RTD266X  
+  -d \<device #\> : Specify the i2c bus to use, e.g. -d 1 means /dev/i2c-1  
+  -b \<file\>     : Backup the current firmware on the RTD266X to a file  
+  -f \<file\>     : Flash a file to the RTD266X  
 
 Building
 --------
