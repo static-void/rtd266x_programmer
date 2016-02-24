@@ -12,7 +12,8 @@ Make sure to `modprobe i2c-dev`
 
 Then run `i2cdetect -l`. I get the following output:
 
-```i2c-0	i2c       	i915 gmbus ssc                  	I2C adapter  
+```i2c-0	i2c       	i915 gmbus ssc                  	I2C adapter 
+
 i2c-1	i2c       	i915 gmbus vga                  	I2C adapter  
 i2c-2	i2c       	i915 gmbus panel                	I2C adapter  
 i2c-3	i2c       	i915 gmbus dpc                  	I2C adapter  
