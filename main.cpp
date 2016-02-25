@@ -372,6 +372,8 @@ static char help[] =
   "Usage: rtd_prog -d <device #> [-option[s]]\n"
   "Options:\n"
   "  -d <device #> : Specify the i2c bus to use, e.g. -d 1 means /dev/i2c-1\n"
+  "                  Given alone this option will just print some info about\n"
+  "                  the board (if it finds one)\n"
   "  -b <file>     : Backup the current firmware on the RTD266X to a file\n"
   "  -f <file>     : Flash a file to the RTD266X\n"
 };
@@ -434,7 +436,8 @@ int main(int argc, char** argv)
     argv++;
   }
 
-  if (deviceno == -1 || filename == NULL || action == -1) {
+  /* (A != B) is equivalent to XOR for booleans */
+  if (deviceno == -1 || ((filename == NULL) != (action == -1))) {
     fprintf(stderr, "Error: not enough options\n");
     printf("%s", help);
   }
