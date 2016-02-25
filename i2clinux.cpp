@@ -45,7 +45,7 @@ SetI2CAddr(uint8_t addr) {
 bool
 WriteReg(uint8_t reg, uint8_t value) {
   if (i2c_smbus_write_byte_data(file, reg, value) < 0) {
-    fprintf(stderr, "Error: could not write to register %d\n", reg);
+    /* fprintf(stderr, "Error: could not write to register %d\n", reg); */
     return false;
   }
   return true;
@@ -54,8 +54,9 @@ WriteReg(uint8_t reg, uint8_t value) {
 uint8_t
 ReadReg(uint8_t reg) {
   int32_t result;
-  if ((result = i2c_smbus_read_byte_data(file, reg)) == -1)
-    fprintf(stderr, "Error: could not read from register %d\n", reg);
+  result = i2c_smbus_read_byte_data(file, reg);
+  /* if ((result = i2c_smbus_read_byte_data(file, reg)) == -1)
+    fprintf(stderr, "Error: could not read from register %d\n", reg); */
 
   return (uint8_t)result;
 }
@@ -63,9 +64,8 @@ ReadReg(uint8_t reg) {
 int32_t
 ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len) {
   int read;
-  //if ((*len = i2c_smbus_read_block_data(file, reg, dest)) == -1) {
   if ((read = i2c_smbus_read_i2c_block_data(file, reg, len, dest)) == -1) {
-    fprintf(stderr, "Error: could not read block from register %d\n", reg);
+    /* fprintf(stderr, "Error: could not read block from register %d\n", reg); */
     return -1;
   }
   return read;
@@ -75,7 +75,7 @@ bool
 WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len) {
   //if (i2c_smbus_write_block_data(file, reg, len, values) < 0) {
   if (i2c_smbus_write_i2c_block_data(file, reg, len, values) < 0) {
-    fprintf(stderr, "Error: could not write block data to register %d\n", reg);
+    /* fprintf(stderr, "Error: could not write block data to register %d\n", reg); */
     return false;
   }
   return true;

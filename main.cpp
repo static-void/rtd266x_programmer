@@ -448,33 +448,48 @@ int main(int argc, char** argv)
     //return -1;
     exit(EXIT_FAILURE);
   }
-  printf("Ready\n");
+  printf("I2C ready\n");
   SetI2CAddr(0x4a);
 
+  printf("Attempting to read chip ID... ");
   const FlashDesc* chip;
-  bool cnt;
+  bool cnt = false;
+  int i = 0;
+  char rotate[] = "|\\-/";
   do {
-    cnt = false;
+    i++;
     if (!WriteReg(0x6f, 0x80)) {  // Enter ISP mode
-      printf("Write to 6F failed.\n");
+      if (cnt == false) printf("Write to 6F failed, keep trying...  ");
       //return -2;
       cnt = true;
+      printf("\b%c", rotate[(i % 4)]);
+      fflush(stdout);
       continue;
+    }
+    else {
+      cnt = false;
+      printf("\n");
     }
     b = ReadReg(0x6f);
     if (!(b & 0x80)) {
-      printf("Can't enable ISP mode\n");
+      if (cnt == false) printf("Can't enable ISP mode, keep trying...  ");
       //return -3;
       cnt = true;
+      printf("\b%c", rotate[(i % 4)]);
+      fflush(stdout);
       continue;
     }
+    else {
+      cnt = false;
+      printf("\n");
+    }
     uint32_t jedec_id = SPICommonCommand(E_CC_READ, 0x9f, 3, 0, 0);
-    printf("JEDEC ID: 0x%02x\n", jedec_id);
+    printf("\nJEDEC ID: 0x%02x\n", jedec_id);
     chip = FindChip(jedec_id);
     if (NULL == chip) {
       printf("Unknown chip ID\n");
-      cnt = true;
-      continue;
+      CloseI2C();
+      exit(EXIT_FAILURE);
     }
   } while(cnt);
   printf("Manufacturer ");
