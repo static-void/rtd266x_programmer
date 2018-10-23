@@ -50,6 +50,7 @@ static const FlashDesc FlashDevices[] = {
     // Microchip
     {"SST25VF512" , 0xBF4800,       64,       256, 32},
     {"SST25VF032" , 0xBF4A00, 4 * 1024,       256, 32},
+    {"MX25L4005"  , 0xC22013,     1024,       256, 64},
     {NULL , 0, 0, 0, 0}
 };
 
