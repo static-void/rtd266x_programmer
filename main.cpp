@@ -173,6 +173,7 @@ void SetupChipCommands(uint32_t jedec_id) {
   uint8_t manufacturer_id = GetManufacturerId(jedec_id);
   switch (manufacturer_id) {
   case 0xEF:
+  case 0xC2:
     // These are the codes for Winbond
     WriteReg(0x62, 0x6);  // Flash Write enable op code
     WriteReg(0x63, 0x50); // Flash Write register op code
