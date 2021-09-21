@@ -1,5 +1,5 @@
 rtd_prog: main.cpp crc.o gff.o i2c.o
-	${CXX} ${CPPFLAGS} ${CXXFLAGS} ${LDFLAGS} crc.o gff.o i2c.o main.cpp -o rtd_prog
+	${CXX} ${CPPFLAGS} ${CXXFLAGS} ${LDFLAGS} crc.o gff.o i2c.o main.cpp -o rtd_prog -li2c
 
 crc.o: crc.cpp crc.h
 	${CXX} ${CPPFLAGS} ${CXXFLAGS} -c -o crc.o crc.cpp
